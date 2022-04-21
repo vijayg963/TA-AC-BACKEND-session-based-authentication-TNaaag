@@ -17,14 +17,23 @@ router.get('/login', function (req, res, next) {
 });
 
 router.get('/registration', function (req, res, next) {
-  res.render('registration');
+  res.render('registration', { error: req.flash('error')[0] });
 });
 
 router.post('/registration', function (req, res, next) {
   User.create(req.body, (err, user) => {
-    if (err) return next(err);
-    console.log(user);
-    res.redirect('/users');
+    if (err) {
+      if (err.name === 'MongoError') {
+        req.flash('error', 'This email is taken');
+        return res.redirect('/users/registration');
+      }
+      if (err.name === 'validationError ') {
+        req.flash('error', err.message);
+        return res.redirect('/users/register');
+      }
+      return res.json({ err });
+    }
+    res.redirect('/users/login');
   });
 });
 
@@ -39,6 +48,7 @@ router.post('/login', function (req, res, next) {
     if (err) return next(err);
     // no user
     if (!user) {
+      req.flash('error', 'This email is not registered');
       return res.redirect('/users/login');
     }
     // campare password
@@ -46,6 +56,7 @@ router.post('/login', function (req, res, next) {
       console.log(err, result);
       if (err) return next(err);
       if (!result) {
+        req.flash('error', 'Incorrect password');
         return res.redirect('/users/login');
       }
       // parsist logged in user information
@@ -58,7 +69,7 @@ router.post('/login', function (req, res, next) {
 
 router.get('/logout', (req, res) => {
   req.session.destroy();
-  res.clearCookie('connect.sid');
+  // res.clearCookie('connect.sid');
   res.redirect('/users/login');
 });
 
