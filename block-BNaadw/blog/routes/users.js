@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var User = require('../model/user-login');
+var User = require('../model/login');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -61,7 +61,7 @@ router.post('/login', function (req, res, next) {
       }
       // parsist logged in user information
       req.session.userId = user.id;
-      res.redirect('/users');
+      res.redirect('/article');
     });
     0;
   });
@@ -69,8 +69,7 @@ router.post('/login', function (req, res, next) {
 
 router.get('/logout', (req, res) => {
   req.session.destroy();
-  // res.clearCookie('connect.sid');
-  res.redirect('/users/login');
+  return res.redirect('/users/login');
 });
 
 module.exports = router;

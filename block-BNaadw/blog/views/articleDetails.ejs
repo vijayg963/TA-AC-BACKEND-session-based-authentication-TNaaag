@@ -17,7 +17,7 @@
         <a href="/article/new"> Add New Article </a>
       </button>
     </header>
-    <main>
+    <main class="article-view">
       <h2><%= article.title %></h2>
       <h3><%= article.author %></h3>
       <% article.tags.forEach(t => { %>
@@ -25,9 +25,14 @@
       <% }) %>
       <p><%= article.description %></p>
       <h3><%= article.likes ? article.likes:0 %></h3>
-      <a href="/article/<%= article.id %>/likes">
-        <button class="like">Like</button>
-      </a>
+      <div class="flex">
+        <a href="/article/<%= article.id %>/likes">
+          <button class="like">Like</button>
+        </a>
+        <a href="/article/<%= article.id %>/dislike">
+          <button class="dislike">Dislike</button>
+        </a>
+      </div>
       <div class="flex">
         <a href="/article/<%= article.id %>/edit ">
           <button class="edit">Edit</button>

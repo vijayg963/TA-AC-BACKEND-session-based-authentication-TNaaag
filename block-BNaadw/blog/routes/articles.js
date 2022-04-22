@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Article = require('../modal/article');
+var Article = require('../model/article');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -71,6 +71,20 @@ router.get('/:id/likes', (req, res, next) => {
     if (err) return next(err);
     res.redirect('/article/' + id);
   });
+});
+
+// for decrement or dislike
+router.get('/:id/dislike', (req, res, next) => {
+  var id = req.params.id;
+  Article.findByIdAndUpdate(id, { $inc: { likes: -1 } }, (err, article) => {
+    if (err) return next(err);
+    res.redirect('/article/' + id);
+  });
+});
+
+router.get('/logout', (req, res) => {
+  req.session.destroy();
+  return res.redirect('/users/login');
 });
 
 module.exports = router;

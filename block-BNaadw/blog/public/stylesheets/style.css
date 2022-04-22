@@ -62,7 +62,8 @@ form {
   border: 5px solid wheat;
 }
 
-input {
+input,
+textarea {
   padding: 5px 10px;
   font-size: 1rem;
   width: 90%;
@@ -98,5 +99,23 @@ button[type='submit'] {
 }
 
 .like {
-  background-color: green;
+  background-color: rgb(10, 248, 10);
+}
+
+.dislike {
+  background-color: blue;
+}
+
+.article-view {
+  max-width: 80%;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  color: brown;
+  background-color: bisque;
+  padding: 5px 10px;
+  border-radius: 8px;
 }

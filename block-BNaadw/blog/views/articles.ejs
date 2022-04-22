@@ -13,11 +13,16 @@
         <a href="/article">Home</a>
       </button>
       <h1>All Articals Are here</h1>
-      <button>
-        <a href="/article/new"> Add New Article </a>
-      </button>
+      <div>
+        <button>
+          <a href="/article/new"> Add New Article </a>
+        </button>
+        <button>
+          <a href="users/login">Log out</a>
+        </button>
+      </div>
     </header>
-    <main>
+    <main class="article-view">
       <% if (articles.length) { %> <% articles.forEach(a => { %>
       <a href="/article/<%= a.id %>">
         <h2><%= a.title %></h2>
