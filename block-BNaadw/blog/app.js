@@ -24,7 +24,7 @@ mongoose.connect(
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var articleRouter = require('./model/article');
+var articleRouter = require('./routes/articles');
 
 var app = express();
 
